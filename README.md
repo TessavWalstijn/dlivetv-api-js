@@ -17,15 +17,15 @@
 ```js
 const  { Dlive } = require('dlivetv-unofficial-api')
 
-const displayName = 'sampepper' // Our streamer displayname (https://dlive.tv/displayName)
-const accessKey = 'YOUR KEY' // Our access key ()
+const displayName = 'displayName' // Our streamer displayname (https://dlive.tv/displayName)
+const accessKey = 'YOUR KEY' // Our access key (https://github.com/unofficial-dlive-tv-api/dlivetv-unofficial-api-js/wiki/Get-my-access-key)
 
 // Chat cooldown
 const coolDown = 3000 // 3 seconds
 
 // Parameter 1: displayName
 // Parameter 2: Your access key for sending messages
-let example = new Dlive(displayName, accessKey) // Joining sampepper
+let example = new Dlive(displayName, accessKey)
 
 example.on('ChatText', (message) => {
   console.log(`Messages in Channel ${example.getChannel}: ${message.content}`)
