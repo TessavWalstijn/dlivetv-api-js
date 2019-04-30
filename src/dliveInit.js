@@ -10,56 +10,92 @@ class DliveInit extends dlive {
   constructor (channel, authkey) {
     super()
     let _this = this
-    _this.setChannel = channel
     _this.setAuthkey = authkey
-    _this.client.on('connectFailed', function (error) {
-      return new Error(`Connect error: ${error.toString()}`)
-    })
+    _this.getChannelInformationByDisplayName(channel).then(res => {
+      if (res && res.username) {
+        _this.blockChainUsername = res.username
+        _this.setChannel = channel
+        _this.client.on('connectFailed', function (error) {
+          return new Error(`Connect error: ${error.toString()}`)
+        })
 
-    _this.client.on('connect', function (connection) {
-      if (!_this.getChannel.includes('dlive-')) {
-        console.warn('WARNING: You are not using the Blockchain username, this can lead to problems. You can find the Blockchain username on the channel under the tab "Earnings".')
+        _this.client.on('connect', function (connection) {
+          console.log(`Joined ${_this.getChannel}`)
+          connection.sendUTF(
+            JSON.stringify({
+              type: 'connection_init',
+              payload: {}
+            })
+          )
+          connection.sendUTF(
+            JSON.stringify({
+              id: '1',
+              type: 'start',
+              payload: {
+                variables: {
+                  streamer: _this.blockChainUsername
+                },
+                extensions: {},
+                operationName: 'StreamMessageSubscription',
+                query: 'subscription StreamMessageSubscription($streamer: String!) {\n  streamMessageReceived(streamer: $streamer) {\n    type\n    ... on ChatGift {\n      id\n      gift\n      amount\n      recentCount\n      expireDuration\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatHost {\n      id\n      viewer\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatSubscription {\n      id\n      month\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatChangeMode {\n      mode\n    }\n    ... on ChatText {\n      id\n      content\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatFollow {\n      id\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatDelete {\n      ids\n    }\n    ... on ChatBan {\n      id\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatModerator {\n      id\n      ...VStreamChatSenderInfoFrag\n      add\n    }\n    ... on ChatEmoteAdd {\n      id\n      ...VStreamChatSenderInfoFrag\n      emote\n    }\n  }\n}\n\nfragment VStreamChatSenderInfoFrag on SenderInfo {\n  subscribing\n  role\n  roomRole\n  sender {\n    id\n    username\n    displayname\n    avatar\n    partnerStatus\n  }\n}\n'
+              }
+            })
+          )
+
+          connection.on('error', function (error) {
+            return new Error(`Connection error: ${error.toString()}`)
+          })
+          connection.on('close', function () {
+            return new Error('Connection closed')
+          })
+          connection.on('message', function (message) {
+            if (message && message.type === 'utf8') {
+              message = JSON.parse(message.utf8Data)
+              if (message.payload !== undefined) {
+                let remMessage = message.payload.data.streamMessageReceived['0']
+                _this.emit(remMessage.__typename, remMessage)
+              }
+            }
+          })
+        })
+        _this.client.connect('wss://graphigostream.prd.dlive.tv', 'graphql-ws')
+      } else {
+        return new TypeError('Channel was not found')
       }
+    }).catch(console.log)
+  }
 
-      console.log(`Joined ${_this.getChannel}`)
-      connection.sendUTF(
-        JSON.stringify({
-          type: 'connection_init',
-          payload: {}
-        })
-      )
-      connection.sendUTF(
-        JSON.stringify({
-          id: '1',
-          type: 'start',
-          payload: {
-            variables: {
-              streamer: channel
-            },
-            extensions: {},
-            operationName: 'StreamMessageSubscription',
-            query: 'subscription StreamMessageSubscription($streamer: String!) {\n  streamMessageReceived(streamer: $streamer) {\n    type\n    ... on ChatGift {\n      id\n      gift\n      amount\n      recentCount\n      expireDuration\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatHost {\n      id\n      viewer\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatSubscription {\n      id\n      month\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatChangeMode {\n      mode\n    }\n    ... on ChatText {\n      id\n      content\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatFollow {\n      id\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatDelete {\n      ids\n    }\n    ... on ChatBan {\n      id\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatModerator {\n      id\n      ...VStreamChatSenderInfoFrag\n      add\n    }\n    ... on ChatEmoteAdd {\n      id\n      ...VStreamChatSenderInfoFrag\n      emote\n    }\n  }\n}\n\nfragment VStreamChatSenderInfoFrag on SenderInfo {\n  subscribing\n  role\n  roomRole\n  sender {\n    id\n    username\n    displayname\n    avatar\n    partnerStatus\n  }\n}\n'
-          }
-        })
-      )
+  followUserChannel (channel) {
+    console.log(channel)
+    const postData = JSON.stringify({
+      operationName: 'FollowUser',
+      query: 'mutation FollowUser($streamer:String!){follow(streamer:$streamer){err{code message __typename}__typename}}',
+      variables: {
+        streamer: channel
+      }
+    })
+    return new Promise((resolve, reject) => {
+      this.request(this.getAuthkey, postData).then((result) => {
+        result = JSON.parse(result)
+        result.data.follow.err !== null ? reject(result.data.follow.err) : resolve(true)
+      }).catch(console.log)
+    })
+  }
 
-      connection.on('error', function (error) {
-        return new Error(`Connection error: ${error.toString()}`)
-      })
-      connection.on('close', function () {
-        return new Error('Connection closed')
-      })
-      connection.on('message', function (message) {
-        if (message && message.type === 'utf8') {
-          message = JSON.parse(message.utf8Data)
-          if (message.payload !== undefined) {
-            let remMessage = message.payload.data.streamMessageReceived['0']
-            _this.emit(remMessage.__typename, remMessage)
-          }
-        }
+  unfollowUserChannel (channel) {
+    const postData = JSON.stringify({
+      operationName: 'UnfollowUser',
+      query: 'mutation UnfollowUser($streamer:String!){unfollow(streamer:$streamer){err{code message __typename}__typename}}',
+      variables: {
+        streamer: channel
+      }
+    })
+    return new Promise((resolve, reject) => {
+      this.request(this.getAuthkey, postData).then((result) => {
+        result = JSON.parse(result)
+        result.data.follow.err !== null ? reject(result.errors['0'].message) : resolve(true)
       })
     })
-    _this.client.connect('wss://graphigostream.prd.dlive.tv', 'graphql-ws')
   }
 
   sendChatMessage (message) {
@@ -105,7 +141,7 @@ class DliveInit extends dlive {
               `,
       variables: {
         input: {
-          streamer: this.getChannel,
+          streamer: this.getBlockChainUsername,
           message: message,
           roomRole: 'Moderator',
           subscribing: true
@@ -336,6 +372,12 @@ class DliveInit extends dlive {
           })
         })
       }
+    })
+  }
+
+  channelNameToBlockchain (channel) {
+    this.getChannelInformation(channel).then(res => {
+      return res.username !== undefined ? res.username : false
     })
   }
 }

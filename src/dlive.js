@@ -24,6 +24,14 @@ class dlive extends EventEmitter {
     return this.channel
   }
 
+  get getBlockChainUsername () {
+    return this.blockChainUsername
+  }
+
+  set setBlockChainUsername (username) {
+    this.blockChainUsername = username
+  }
+
   set setAuthkey (authkey) {
     this.authkey = authkey
   }

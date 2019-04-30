@@ -17,15 +17,15 @@
 ```js
 const  { Dlive } = require('dlivetv-unofficial-api')
 
-const blockchainName = 'YOUR BLOCKCHAIN NAME (e.g. dlive-1234567890)' // Our Blockchain username
-const accessKey = 'YOUR KEY' // Our access key
+const displayName = 'sampepper' // Our streamer displayname (https://dlive.tv/displayName)
+const accessKey = 'YOUR KEY' // Our access key ()
 
 // Chat cooldown
 const coolDown = 3000 // 3 seconds
 
-// Parameter 1: Blockchain username
+// Parameter 1: displayName
 // Parameter 2: Your access key for sending messages
-let example = new Dlive(blockchainName, accessKey) // Joining sampepper
+let example = new Dlive(displayName, accessKey) // Joining sampepper
 
 example.on('ChatText', (message) => {
   console.log(`Messages in Channel ${example.getChannel}: ${message.content}`)
@@ -53,7 +53,7 @@ example.on('ChatGift', (message) => {
 })
 
 // Get our channel informations
-example.getChannelInformationByDisplayName('pewdiepie' /* enter a displayname, not the Blockchain username */).then((result) => {
+example.getChannelInformationByDisplayName('pewdiepie' /* enter a displayname */).then((result) => {
   console.log(result)
 }).catch((error) => {
   console.log(error)

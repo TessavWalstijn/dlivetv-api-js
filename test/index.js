@@ -4,7 +4,7 @@
 
 const { Dlive } = require('../src')
 const { expect } = require('chai')
-const channelName = 'pdp'
+const channelName = 'BobbyPlays'
 const authKey = 'abc'
 let channel = new Dlive(channelName, authKey)
 
