@@ -2,7 +2,6 @@
 <p align="center">
     <a href="#"><img src="https://i.imgur.com/XXdD3AH.png" /></a>
     <br />
-    > dlivetv-unofficial-api is a wrapping API for the graphql hidden api provided from dlive.tv with a focus on ease of use and focus on performance
     <br />
     <a href="https://discord.gg/hRWra7r"><img alt="Discord" src="https://img.shields.io/discord/567034368002883594.svg?label=Discord&style=for-the-badge"></a>
     <a href="https://github.com/timedotcc/dlivetv-unofficial-api/blob/master/LICENSE"><img alt="GitHub" src="https://img.shields.io/badge/License-Modified%20MIT-green.svg?style=for-the-badge"></a>
@@ -12,6 +11,9 @@
     <br />
     <a href="https://nodei.co/npm/dlivetv-unofficial-api/"><img src="https://nodei.co/npm/dlivetv-unofficial-api.png?mini=true"></a>
 </p>
+
+
+> dlivetv-unofficial-api is a wrapping API for the graphql hidden api provided from dlive.tv with a focus on ease of use and focus on performance. 
 
 ## Prerequisites
 - Access token is required to use this module. Create an account on [dlive.tv](https://dlive.tv/) then follow our [wiki](https://github.com/dlive-apis/dlivetv-unofficial-api-js/wiki/Get-my-access-key) tutorial to get your token
