@@ -76,7 +76,7 @@ const getChannelViewers = (authKey, channel) => {
       } else {
         reject(new Error(result.errors['0'].message))
       }
-    })
+    }).catch(reject)
   })
 }
 
@@ -88,7 +88,7 @@ const getChannelFollowers = (authKey, channel, amountToShow) => {
     isLoggedIn: true
   })
   return new Promise((resolve, reject) => {
-    return webRequest(authKey, postData).then((result) => {
+    webRequest(authKey, postData).then((result) => {
       result = JSON.parse(result)
       if (result.data.userByDisplayName.followers) {
         const followers = result.data.userByDisplayName.followers.list
@@ -96,7 +96,40 @@ const getChannelFollowers = (authKey, channel, amountToShow) => {
       } else {
         reject(new Error(result.errors['0'].message))
       }
-    })
+    }).catch(reject)
+  })
+}
+
+const getChannelReplays = (authKey, channel, amountToShow) => {
+  const postData = generatePostData('LivestreamProfileReplay', {
+    displayname: channel,
+    first: amountToShow
+  })
+  return new Promise((resolve, reject) => {
+    webRequest(authKey, postData).then((result) => {
+      result = JSON.parse(result)
+      result.errors !== undefined ? reject(new Error(result.errors['0'].message)) : resolve(result.data.userByDisplayName.pastBroadcasts)
+    }).catch(reject)
+  })
+}
+
+const getChannelWallet = (authKey, channel, amountToShow) => {
+  const postData = generatePostData('LivestreamProfileWallet', {
+    displayname: channel,
+    first: amountToShow,
+    isLoggedIn: true
+  })
+  return new Promise((resolve, reject) => {
+    webRequest(authKey, postData).then((result) => {
+      result = JSON.parse(result)
+      if (result.data.userByDisplayName) {
+        let details = {
+          transactions: result.data.userByDisplayName.transactions,
+          wallet: result.data.userByDisplayName.wallet
+        }
+        resolve(details)
+      }
+    }).catch(reject)
   })
 }
 
@@ -105,8 +138,8 @@ const getDliveGlobalInformation = (authKey) => {
   return new Promise((resolve, reject) => {
     webRequest(authKey, postData).then((result) => {
       result = JSON.parse(result)
-      return result.errors !== undefined ? reject(new Error(result.errors['0'].message)) : resolve(result)
-    })
+      result.errors !== undefined ? reject(new Error(result.errors['0'].message)) : resolve(result)
+    }).catch(reject)
   })
 }
 
@@ -161,6 +194,8 @@ module.exports = {
   getChannelInformation,
   getChannelFollowers,
   getChannelViewers,
+  getChannelReplays,
+  getChannelWallet,
   getDliveGlobalInformation,
   getTopContributors,
   sendChatMessage

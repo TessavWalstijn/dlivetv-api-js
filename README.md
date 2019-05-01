@@ -2,23 +2,36 @@
 <p align="center">
     <a href="#"><img src="https://i.imgur.com/XXdD3AH.png" /></a>
     <br />
+    > dlivetv-unofficial-api is a wrapping API for the graphql hidden api provided from dlive.tv with a focus on ease of use and focus on performance
     <br />
     <a href="https://discord.gg/hRWra7r"><img alt="Discord" src="https://img.shields.io/discord/567034368002883594.svg?label=Discord&style=for-the-badge"></a>
     <a href="https://github.com/timedotcc/dlivetv-unofficial-api/blob/master/LICENSE"><img alt="GitHub" src="https://img.shields.io/badge/License-Modified%20MIT-green.svg?style=for-the-badge"></a>
     <a href="https://nodei.co/npm/dlivetv-unofficial-api/"><img alt="npm" src="https://img.shields.io/npm/v/dlivetv-unofficial-api.svg?style=for-the-badge"></a>
     <a href="https://beerpay.io/timedotcc/dlivetv-unofficial-api"><img alt="Beerpay" src="https://img.shields.io/beerpay/timedotcc/dlivetv-unofficial-api.svg?label=Donate&style=for-the-badge"></a>
-	<a href="#"><img alt="Travis" src="https://img.shields.io/travis/com/timedotcc/dlivetv-unofficial-api.svg?style=for-the-badge"</a>
-    <br />
+	  <br />
     <br />
     <a href="https://nodei.co/npm/dlivetv-unofficial-api/"><img src="https://nodei.co/npm/dlivetv-unofficial-api.png?mini=true"></a>
 </p>
 
-## Example
+## Prerequisites
+- Access token is required to use this module. Create an account on [dlive.tv](https://dlive.tv/) then follow our [wiki](https://github.com/dlive-apis/dlivetv-unofficial-api-js/wiki/Get-my-access-key) tutorial to get your token
+
+## Installation
+dlivetv-unofficial-api is free and easy to install
+```bash
+npm install dlivetv-unofficial-api --save
+```
+You can install it in yarn too
+```bash
+yarn add dlivetv-unofficial-api
+```
+
+## First Usage
 ```js
 const  { Dlive } = require('dlivetv-unofficial-api')
 
 const displayName = 'displayName' // Our streamer displayname (https://dlive.tv/displayName)
-const accessKey = 'YOUR KEY' // Our access key (https://github.com/unofficial-dlive-tv-api/dlivetv-unofficial-api-js/wiki/Get-my-access-key)
+const accessKey = 'YOUR KEY' // Our access key (https://github.com/dlive-apis/dlivetv-unofficial-api-js/wiki/Get-my-access-key)
 
 // Chat cooldown
 const coolDown = 3000 // 3 seconds
@@ -53,7 +66,7 @@ example.on('ChatGift', (message) => {
 })
 
 // Get our channel informations
-example.getChannelInformationByDisplayName('pewdiepie' /* enter a displayname */).then((result) => {
+example.getChannelInformation('pewdiepie' /* enter a displayname */).then((result) => {
   console.log(result)
 }).catch((error) => {
   console.log(error)
@@ -66,5 +79,14 @@ function sendMessage (message) {
   })
 }
 ```
-	 
-More [examples](https://github.com/timedotcc/dlivetv-unofficial-api/wiki/Examples) and [functions](https://github.com/timedotcc/dlivetv-unofficial-api/wiki/Functions) can you find in our [wiki](https://github.com/timedotcc/dlivetv-unofficial-api/wiki).
+## Documentation
+You can find more [examples](https://github.com/dlive-apis/dlivetv-unofficial-api-js/wiki/Examples) and [functions](https://github.com/dlive-apis/dlivetv-unofficial-api-js/wiki/Functions). For more information visit our [wiki](https://github.com/dlive-apis/dlivetv-unofficial-api-js/wiki).
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/dlive-apis/dlivetv-unofficial-api-js/tags). 
+
+## Acknowledgements
+
+- Some graphql queries were taken from [dlive-go-client](https://github.com/Dak425/dlive) written by @Dak425
+- [Contributors](https://github.com/dlive-apis/dlivetv-unofficial-api-js/graphs/contributors)
