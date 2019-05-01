@@ -6,6 +6,7 @@
     <a href="https://discord.gg/hRWra7r"><img alt="Discord" src="https://img.shields.io/discord/567034368002883594.svg?label=Discord&style=for-the-badge"></a>
     <a href="https://github.com/timedotcc/dlivetv-unofficial-api/blob/master/LICENSE"><img alt="GitHub" src="https://img.shields.io/badge/License-Modified%20MIT-green.svg?style=for-the-badge"></a>
     <a href="https://nodei.co/npm/dlivetv-unofficial-api/"><img alt="npm" src="https://img.shields.io/npm/v/dlivetv-unofficial-api.svg?style=for-the-badge"></a>
+    <a href="https://www.npmjs.com/package/dlivetv-unofficial-api"><img alt="npm" src="https://img.shields.io/npm/dm/dlivetv-unofficial-api.svg?style=for-the-badge"></a>
     <a href="https://beerpay.io/timedotcc/dlivetv-unofficial-api"><img alt="Beerpay" src="https://img.shields.io/beerpay/timedotcc/dlivetv-unofficial-api.svg?label=Donate&style=for-the-badge"></a>
 	  <br />
     <br />
