@@ -4,7 +4,7 @@
 const { Dlive } = require('../src')
 const { expect } = require('chai')
 const channelName = 'channelName'
-const authKey = 'abc'
+const authKey = 'ACCESS_TOKEN'
 let channel = new Dlive(channelName, authKey)
 
 const main = async () => {
