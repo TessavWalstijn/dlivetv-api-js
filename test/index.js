@@ -1,11 +1,10 @@
 /* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 'use strict'
 
 const { Dlive } = require('../src')
 const { expect } = require('chai')
 const channelName = 'BobbyPlays'
-const authKey = 'abc'
+const authKey = 'API_KEY'
 let channel = new Dlive(channelName, authKey)
 
 const main = async () => {
@@ -35,5 +34,5 @@ const main = async () => {
   await main()
   setTimeout(_ => {
     process.exit(0)
-  }, 3500)
+  }, 5000)
 })()

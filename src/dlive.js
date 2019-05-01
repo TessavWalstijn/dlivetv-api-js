@@ -3,7 +3,6 @@
 const EventEmitter = require('events')
 const https = require('https')
 const Websocket = require('websocket')
-const { webRequest } = require('./webrequest')
 
 class dlive extends EventEmitter {
   constructor () {
@@ -13,7 +12,6 @@ class dlive extends EventEmitter {
     this.https = https
     this.WebsocketClient = Websocket.client
     this.client = new this.WebsocketClient()
-    this.request = webRequest
   }
 
   get getAuthkey () {
