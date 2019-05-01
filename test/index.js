@@ -3,7 +3,7 @@
 
 const { Dlive } = require('../src')
 const { expect } = require('chai')
-const channelName = 'BobbyPlays'
+const channelName = 'channelName'
 const authKey = 'API_KEY'
 let channel = new Dlive(channelName, authKey)
 
