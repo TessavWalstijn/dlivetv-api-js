@@ -68,12 +68,14 @@ example.on('ChatGift', (message) => {
   sendMessage(`Thanks for ${message.amount}x ${message.gift}, @${message.sender.displayname}`)
 })
 
-// Get our channel informations
+// Get our channel information
 example.getChannelInformation('pewdiepie' /* enter a displayname */).then((result) => {
   console.log(result)
-}).catch((error) => {
-  console.log(error)
-})
+}).catch(console.log)
+
+example.util.getRisingCreators().then((result) => { // Let's see who's on the top of the ladder
+  console.log(result)
+}).catch(console.log)
 
 function sendMessage (message) {
   example.sendMessage(message).catch((error) => {
