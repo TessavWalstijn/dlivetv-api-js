@@ -95,3 +95,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 - Some graphql queries were taken from [dlive-go-client](https://github.com/Dak425/dlive) written by @Dak425
 - [Contributors](https://github.com/dlive-apis/dlivetv-unofficial-api-js/graphs/contributors)
+
+## See also
+
+- [C#](https://github.com/dlive-apis/dlivetv-unofficial-api-net) version of dlivetv-unofficial-api
