@@ -1,5 +1,4 @@
 'use strict'
-
 const https = require('https')
 
 function generateOptions (authKey) {
@@ -19,15 +18,15 @@ function generateOptions (authKey) {
 }
 
 const webRequest = (authKey, postData) => {
-  return new Promise((resolve) => {
+  return new Promise(async (resolve) => {
     let options = generateOptions(authKey)
     let req = https.request(options, (res) => {
       res.setEncoding('utf-8')
       res.on('data', (chunk) => {
-        resolve(chunk)
+        resolve(JSON.parse(chunk))
       })
     })
-    req.write(postData)
+    await req.write(postData)
     req.end()
   })
 }

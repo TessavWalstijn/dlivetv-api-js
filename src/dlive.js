@@ -1,5 +1,4 @@
 'use strict'
-
 const EventEmitter = require('events')
 const https = require('https')
 const Websocket = require('websocket')

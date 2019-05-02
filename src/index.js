@@ -1,11 +1,13 @@
 'use strict'
 const util = require('./util')
 const { dlive } = require('./dlive')
+const { dliveUtil } = require('./dliveUtil')
 const STREAM_RULES = ['THIS_STREAM', 'THIS_MONTH', 'ALL_TIME']
 class Dliver extends dlive {
   constructor (channel, authKey) {
     super()
     this.init(channel, authKey)
+    this.util = new dliveUtil(authKey)
   }
 
   async init (channel, authKey) {
@@ -155,17 +157,6 @@ class Dliver extends dlive {
     })
   }
 
-  getGlobalInformation () {
-    return new Promise((resolve, reject) => {
-      if (!this.authkey) {
-        return new Error('You need to initalize a authorization API token')
-      }
-      util.getDliveGlobalInformation(this.getAuthkey).then((result) => {
-        resolve(result)
-      }).catch(reject)
-    })
-  }
-
   getChannelViewers (displayName = this.getChannel) {
     return new Promise((resolve, reject) => {
       if (!displayName) {
@@ -212,5 +203,6 @@ class Dliver extends dlive {
 }
 
 module.exports = {
-  Dlive: Dliver
+  Dlive: Dliver,
+  DliveUtil: dliveUtil
 }
