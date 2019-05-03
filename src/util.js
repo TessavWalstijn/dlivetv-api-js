@@ -78,7 +78,6 @@ const getChannelViewers = (authKey, channel) => {
 }
 
 const getChannelFollowers = (authKey, channel, amountToShow) => {
-  console.log(channel, amountToShow)
   const postData = generatePostData('LivestreamProfileFollowers', {
     displayname: channel,
     sortedBy: 'AZ',
@@ -104,8 +103,21 @@ const getChannelReplays = (authKey, channel, amountToShow) => {
   })
   return new Promise((resolve, reject) => {
     webRequest(authKey, postData).then((result) => {
-      result.errors !== undefined ? reject(new Error(result.errors['0'].message)) : resolve(result.data.userByDisplayName.pastBroadcasts)
+      result.errors !== undefined ? reject(new Error(result.errors['0'].message)) : resolve(result.data.userByDisplayName.pastBroadcasts.list)
     }).catch(reject)
+  })
+}
+
+const getChannelVideos = (authKey, channel, amountToShow) => {
+  const postData = generatePostData('LivestreamProfileVideo', {
+    displayname: channel,
+    sortedBy: 'Trending',
+    first: amountToShow
+  })
+  return new Promise((resolve, reject) => {
+    webRequest(authKey, postData).then((result) => {
+      result.errors !== undefined ? reject(new Error(result.errors['0'].message)) : resolve(result.data.userByDisplayName.videos.list)
+    })
   })
 }
 
@@ -178,6 +190,7 @@ module.exports = {
   getChannelFollowers,
   getChannelViewers,
   getChannelReplays,
+  getChannelVideos,
   getChannelWallet,
   getTopContributors,
   sendChatMessage

@@ -24,7 +24,7 @@ class dliveMod {
         id: messageID
       })
       webRequest(postData, this.authKey).then((result) => {
-        console.log(result)
+        result.errors !== undefined ? reject(new Error(result.errors['0'].message)) : resolve(true)
       })
     })
   }
