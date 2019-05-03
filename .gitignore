@@ -65,3 +65,12 @@ typings/
 
 # distribution package
 distribution/
+*.dll
+src/.vs/VSWorkspaceState.json
+src/.vs/src/v16/.suo
+src/.vs/slnx.sqlite
+src/.vs/ProjectSettings.json
+src/.vs/dlivetv-unofficial-api-js/v16/.suo
+src/dlivetv-unofficial-api-js.njsproj
+src/dlivetv-unofficial-api-js.njsproj.user
+src/dlivetv-unofficial-api-js.sln
