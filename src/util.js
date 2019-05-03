@@ -78,6 +78,7 @@ const getChannelViewers = (authKey, channel) => {
 }
 
 const getChannelFollowers = (authKey, channel, amountToShow) => {
+  console.log(channel, amountToShow)
   const postData = generatePostData('LivestreamProfileFollowers', {
     displayname: channel,
     sortedBy: 'AZ',

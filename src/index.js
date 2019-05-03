@@ -2,6 +2,7 @@
 const util = require('./util')
 const { dlive } = require('./dlive')
 const { dliveUtil } = require('./dliveUtil')
+const { dliveMod } = require('./dliveModeration')
 const STREAM_RULES = ['THIS_STREAM', 'THIS_MONTH', 'ALL_TIME']
 class Dliver extends dlive {
   constructor (channel, authKey) {
@@ -17,9 +18,10 @@ class Dliver extends dlive {
     if (blockchain instanceof Error) {
       return console.log(new Error('Invalid API KEY or CHANNEL'))
     } else {
-      this.setBlockChainUsername = blockchain
+      _this.setBlockChainUsername = blockchain
+      _this.setChannel = channel
+      this.moderation = new dliveMod(this.getAuthkey, this.getChannel, this.getBlockChainUsername)
     }
-    _this.setChannel = channel
     _this.client.on('connectFailed', function (error) {
       return new Error(`Connect error: ${error.toString()}`)
     })
@@ -68,43 +70,33 @@ class Dliver extends dlive {
 
   followUserChannel (channel = this.getBlockChainUsername) {
     return new Promise(async (resolve, reject) => {
-      if (!channel) {
+      if (!channel && !this.getBlockChainUsername) {
         reject(new TypeError('You need to initalize or specify a channel'))
-      } else if (channel !== this.getBlockChainUsername) {
-        channel = await util.channelToBlockchain(this.getAuthkey, channel)
-        if (!(channel instanceof Error)) {
-          util.followChannel(this.getAuthkey, channel).then(res => {
-            resolve(res)
-          }).catch(reject)
-        } else {
-          reject(channel)
-        }
-      } else {
-        util.followChannel(this.getAuthkey, channel).then(res => {
-          resolve(res)
-        }).catch(reject)
+      } else if (!this.getBlockChainUsername) {
+        channel = await util.channelToBlockchain(channel)
       }
+      if (channel instanceof Error) {
+        reject(new TypeError('Invalid streamer'))
+      }
+      util.followChannel(this.getAuthkey, channel).then(res => {
+        resolve(res)
+      }).catch(reject)
     })
   }
 
   unfollowUserChannel (channel = this.getBlockChainUsername) {
     return new Promise(async (resolve, reject) => {
-      if (!channel) {
+      if (!channel && !this.getBlockChainUsername) {
         reject(new TypeError('You need to initalize or specify a channel'))
-      } else if (channel !== this.getBlockChainUsername) {
-        channel = await util.channelToBlockchain(this.getAuthkey, channel)
-        if (!(channel instanceof Error)) {
-          util.unfollowChannel(this.getAuthkey, channel).then(res => {
-            resolve(res)
-          }).catch(reject)
-        } else {
-          reject(channel)
-        }
-      } else {
-        util.unfollowChannel(this.getAuthkey, channel).then(res => {
-          resolve(res)
-        }).catch(reject)
+      } else if (!this.getBlockChainUsername) {
+        channel = await util.channelToBlockchain(channel)
       }
+      if (channel instanceof Error) {
+        reject(new TypeError('Invalid streamer'))
+      }
+      util.unfollowChannel(this.getAuthkey, channel).then(res => {
+        resolve(res)
+      }).catch(reject)
     })
   }
 
@@ -120,9 +112,14 @@ class Dliver extends dlive {
   }
 
   sendMessageToChannel (msg, channel = this.getBlockChainUsername) {
-    return new Promise((resolve, reject) => {
-      if (!channel) {
+    return new Promise(async (resolve, reject) => {
+      if (!channel && !this.getBlockChainUsername) {
         reject(new TypeError('You need to initalize or specify a channel'))
+      } else if (!this.getBlockChainUsername) {
+        channel = await util.channelToBlockchain(channel)
+      }
+      if (channel instanceof Error) {
+        reject(new TypeError('Invalid streamer'))
       }
 
       util.sendChatMessage(this.getAuthkey, channel, msg).then(res => {
@@ -133,7 +130,7 @@ class Dliver extends dlive {
 
   getChannelInformation (displayName = this.getChannel) {
     return new Promise((resolve, reject) => {
-      if (!displayName) {
+      if (!displayName && !this.getChannel) {
         reject(new TypeError('You need to initalize or specify a channel'))
       }
       util.getChannelInformation(this.getAuthkey, displayName).then(res => {
@@ -144,7 +141,7 @@ class Dliver extends dlive {
 
   getChannelTopContributors (displayName = this.getChannel, amountToShow = 5, rule = 'THIS_STREAM') {
     return new Promise((resolve, reject) => {
-      if (!displayName) {
+      if (!displayName && !this.getChannel) {
         reject(new TypeError('You need to initalize or specify a channel'))
       }
       if (!STREAM_RULES.includes(rule)) {
@@ -159,7 +156,7 @@ class Dliver extends dlive {
 
   getChannelViewers (displayName = this.getChannel) {
     return new Promise((resolve, reject) => {
-      if (!displayName) {
+      if (!displayName && !this.getChannel) {
         reject(new TypeError('You need to initalize or specify a channel'))
       }
       util.getChannelViewers(this.getAuthkey, displayName).then((result) => {
@@ -170,7 +167,7 @@ class Dliver extends dlive {
 
   getChannelFollowers (displayName = this.getChannel, amountToShow = 20) {
     return new Promise((resolve, reject) => {
-      if (!displayName) {
+      if (!displayName && !this.getChannel) {
         reject(new TypeError('You need to initalize or specify a channel'))
       }
       util.getChannelFollowers(this.getAuthkey, displayName, amountToShow).then((result) => {
@@ -181,7 +178,7 @@ class Dliver extends dlive {
 
   getChannelReplays (displayName = this.getChannel, amountToShow = 5) {
     return new Promise((resolve, reject) => {
-      if (!displayName) {
+      if (!displayName && !this.getChannel) {
         reject(new TypeError('You need to initalize or specify a channel'))
       }
       util.getChannelReplays(this.getAuthkey, displayName, amountToShow).then((result) => {
@@ -192,7 +189,7 @@ class Dliver extends dlive {
 
   getChannelWallet (displayName = this.getChannel, amountToShow = 5) {
     return new Promise((resolve, reject) => {
-      if (!displayName) {
+      if (!displayName && !this.getChannel) {
         reject(new TypeError('You need to initalize or specify a channel'))
       }
       util.getChannelWallet(this.getAuthkey, displayName, amountToShow).then((result) => {
