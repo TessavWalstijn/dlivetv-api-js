@@ -1,6 +1,6 @@
 {
   "name": "dlivetv-unofficial-api",
-  "version": "2.1.13",
+  "version": "2.1.15",
   "homepage": "https://github.com/timedotcc/dlivetv-unofficial-api#readme",
   "description": "Unofficial dlive.tv api",
   "main": "./src/index.js",
