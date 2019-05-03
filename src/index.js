@@ -212,5 +212,6 @@ class Dliver extends dlive {
 
 module.exports = {
   Dlive: Dliver,
-  DliveUtil: dliveUtil
+  DliveUtil: dliveUtil,
+  DliveMod: dliveMod
 }

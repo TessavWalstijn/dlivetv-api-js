@@ -6,10 +6,11 @@ class dliveMod {
   constructor (authKey, channel, blockchain) {
     this.authKey = authKey
     this.channel = channel
-    this.blockchain = blockchain
+    if (blockchain) {
+      this.blockchain = blockchain
+    }
   }
 
-  /* Query issue, should be fixed later when researching the issue
   deleteMessage (messageID, streamer = this.blockchain) {
     return new Promise(async (resolve, reject) => {
       if (!messageID) {
@@ -28,7 +29,6 @@ class dliveMod {
       })
     })
   }
-  */
 
   getModerators (displayName = this.channel, amountToShow = 10, search = '') {
     return new Promise((resolve, reject) => {

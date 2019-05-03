@@ -2,7 +2,7 @@
     "BanStreamChatUser": "mutation BanStreamChatUser($streamer: String!, $username: String!) { streamchatUserBan(streamer: $streamer, username: $username) { err { code message __typename } __typename } }",
     "UnbanStreamChatUser": "mutation UnbanStreamChatUser($streamer: String!, $username: String!) { streamchatUserUnban(streamer: $streamer, username: $username) { err { code message __typename } __typename } }",
     "BrowsePageSearchCategory": "query BrowsePageSearchCategory($text: String!, $first: Int, $after: String) { search(text: $text) { trendingCategories(first: $first, after: $after) { ...HomeCategoriesFrag __typename } __typename } } fragment HomeCategoriesFrag on CategoryConnection { pageInfo { endCursor hasNextPage __typename } list { ...VCategoryCardFrag __typename } __typename } fragment VCategoryCardFrag on Category { id backendID title imgUrl watchingCount __typename }",
-    "DeleteChat": "mutation DeleteChat($streamer: String!, $id: String!) {\n  chatDelete(streamer: $streamer, id: $id) {\n    err {\n      code\n      message\n      __typename\n    }\n    __typename\n  }\n}\n",
+    "DeleteChat": "mutation DeleteChat($streamer: String!, $id: String!) { chatDelete(streamer: $streamer, id: $id) { err { code message __typename } __typename } }",
     "FollowUser": "mutation FollowUser($streamer:String!) { follow(streamer:$streamer) { err { code message __typename } __typename } }",
     "UnfollowUser": "mutation UnfollowUser($streamer:String!){ unfollow(streamer:$streamer) { err { code message __typename } __typename } }",
     "GlobalInformation": "query GlobalInformation {\n  globalInfo {\n    languages {\n      id\n      backendID\n      language\n      code\n      __typename\n    }\n    __typename\n  }\n}\n",
