@@ -89,13 +89,13 @@ You can find more [examples](https://github.com/dlive-apis/dlivetv-unofficial-ap
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/dlive-apis/dlivetv-unofficial-api-js/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/dlive-apis/dlivetv-api-js/tags). 
 
 ## Acknowledgements
 
 - Some graphql queries were taken from [dlive-go-client](https://github.com/Dak425/dlive) written by @Dak425
-- [Contributors](https://github.com/dlive-apis/dlivetv-unofficial-api-js/graphs/contributors)
+- [Contributors](https://github.com/dlive-apis/dlivetv-api-js/graphs/contributors)
 
 ## See also
 
-- [C#](https://github.com/dlive-apis/dlivetv-unofficial-api-net) version of dlivetv-unofficial-api
+- [C#](https://github.com/dlive-apis/dlivetv-api-net) version of dlivetv-unofficial-api
