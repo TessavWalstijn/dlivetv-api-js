@@ -93,7 +93,7 @@ const getChannelFollowers = (authKey, channel, amountToShow) => {
         webRequest(authKey, postData).then((result) => {
             if (result.data.userByDisplayName.followers) {
                 const followers = result.data.userByDisplayName.followers.list;
-                resolve(followers.length);
+                resolve(followers);
             } else {
                 reject(new Error(result.errors["0"].message));
             }
