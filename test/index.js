@@ -1,10 +1,9 @@
-/* eslint-disable no-undef */
 'use strict'
 
 const { Dlive } = require('../src')
 const { expect } = require('chai')
 const channelName = 'channelName'
-const authKey = 'abc'
+const authKey = 'accessToken'
 let channel = new Dlive(channelName, authKey)
 
 const main = async () => {

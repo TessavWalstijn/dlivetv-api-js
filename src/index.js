@@ -3,6 +3,7 @@ const util = require("./util");
 const { dlive } = require("./dlive");
 const { dliveUtil } = require("./dliveUtil");
 const { dliveMod } = require("./dliveModeration");
+const { dliveUser } = require('./dliveUser')
 const STREAM_RULES = ["THIS_STREAM", "THIS_MONTH", "ALL_TIME"];
 
 class Dliver extends dlive {
@@ -10,6 +11,7 @@ class Dliver extends dlive {
         super();
         this.init(channel, authKey);
         this.util = new dliveUtil(authKey);
+        this.user = new dliveUser(authKey);
     }
 
     async init (channel, authKey) {
@@ -220,5 +222,6 @@ class Dliver extends dlive {
 module.exports = {
     Dlive: Dliver,
     DliveUtil: dliveUtil,
-    DliveMod: dliveMod
+    DliveMod: dliveMod,
+    DliveUser: dliveUser
 };

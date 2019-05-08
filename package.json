@@ -18,7 +18,7 @@
     "eslint-plugin-standard": "^4.0.0"
   },
   "scripts": {
-    "test": "yarn lint && yarn test:raw",
+    "test": "yarn test:raw",
     "lint": "eslint src",
     "test:raw": "mocha"
   },

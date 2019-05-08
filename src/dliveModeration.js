@@ -43,7 +43,6 @@ class dliveMod {
                     search: search
                 });
             webRequest(this.authKey, postData).then((result) => {
-                console.log(result.data.userByDisplayName.chatModerators);
                 result.errors !== undefined
                     ? reject(new Error(result.errors["0"].message))
                     : resolve(result.data.userByDisplayName.chatModerators.list);
@@ -63,7 +62,6 @@ class dliveMod {
                     search: search
                 });
             webRequest(this.authKey, postData).then((result) => {
-                console.log(result.data.userByDisplayName.chatModerators);
                 result.errors !== undefined
                     ? reject(new Error(result.errors["0"].message))
                     : resolve(result.data.userByDisplayName.chatModerators.list);
