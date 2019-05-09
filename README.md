@@ -84,7 +84,7 @@ function sendMessage (message) {
 }
 ```
 ## Documentation
-You can find more [examples](https://github.com/dlive-apis/dlivetv-unofficial-api-js/wiki/Examples) and [functions](https://github.com/dlive-apis/dlivetv-unofficial-api-js/wiki/Functions). For more information visit our [wiki](https://github.com/dlive-apis/dlivetv-unofficial-api-js/wiki).
+You can find more [examples](https://dlive.timedot.cc/node-js#examples) and [functions](https://dlive.timedot.cc/node-js/all-functions). For more information visit our [wiki](https://dlive.timedot.cc/).
 
 ## Versioning
 
