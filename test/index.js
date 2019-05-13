@@ -2,7 +2,7 @@
 
 const { Dlive } = require('../src')
 const { expect } = require('chai')
-const channelName = 'channelName'
+const channelName = 'abc'
 const authKey = 'accessToken'
 let channel = new Dlive(channelName, authKey)
 
@@ -33,5 +33,5 @@ const main = async () => {
   await main()
   setTimeout(_ => {
     process.exit(0)
-  }, 5000)
+  }, 4500)
 })()

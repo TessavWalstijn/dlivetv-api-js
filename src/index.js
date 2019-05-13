@@ -4,7 +4,7 @@ const { dlive } = require("./dlive");
 const { dliveUtil } = require("./dliveUtil");
 const { dliveMod } = require("./dliveModeration");
 const { dliveUser } = require('./dliveUser')
-const STREAM_RULES = ["THIS_STREAM", "THIS_MONTH", "ALL_TIME"];
+const STREAM_RULES = ["THIS_MONTH", "ALL_TIME"];
 
 class Dliver extends dlive {
     constructor (channel, authKey) {
@@ -69,7 +69,7 @@ class Dliver extends dlive {
                             message = JSON.parse(message.utf8Data);
                             if (message.payload !== undefined) {
                                 const remMessage = message.payload.data.streamMessageReceived["0"];
-                                _this.emit(remMessage.__typename, remMessage);
+                                if (typeof remMessage !== 'undefined') _this.emit(remMessage.__typename, remMessage);
                             }
                         }
                     });
@@ -148,7 +148,7 @@ class Dliver extends dlive {
         });
     }
 
-    getChannelTopContributors (displayName = this.getChannel, amountToShow = 5, rule = "THIS_STREAM") {
+    getChannelTopContributors (displayName = this.getChannel, amountToShow = 5, rule = "ALL_TIME") {
         return new Promise((resolve, reject) => {
             if (!displayName && !this.getChannel) {
                 reject(new TypeError("You need to initalize or specify a channel"));

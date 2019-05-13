@@ -25,9 +25,11 @@ class dliveMod {
                     streamer: streamer,
                     id: messageID
                 });
-            webRequest(postData, this.authKey).then((result) => {
-                result.errors !== undefined ? reject(new Error(result.errors["0"].message)) : resolve(true);
-            });
+            webRequest(this.authKey, postData).then((result) => {
+                if (result.errors) reject(new Error(result.errors["0"].message));
+                if (result.data.chatDelete.err) reject(new Error('Invalid message ID or no sufficient permissions'));
+                resolve(true);
+            }).catch(reject)
         });
     }
 

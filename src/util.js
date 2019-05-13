@@ -22,10 +22,9 @@ const generatePostData = (operationName, variables) => {
 };
 
 const followChannel = (authKey, channel) => {
-    const postData = generatePostData("FollowUser",
-        {
-            streamer: channel
-        });
+    const postData = generatePostData("FollowUser", {
+        streamer: channel
+    });
     return new Promise((resolve, reject) => {
         webRequest(authKey, postData).then((result) => {
             result.data.follow.err !== null ? reject(new Error(result.data.follow.err)) : resolve(true);
@@ -34,10 +33,9 @@ const followChannel = (authKey, channel) => {
 };
 
 const unfollowChannel = (authKey, channel) => {
-    const postData = generatePostData("UnfollowUser",
-        {
-            streamer: channel
-        });
+    const postData = generatePostData("UnfollowUser", {
+        streamer: channel
+    });
     return new Promise((resolve, reject) => {
         webRequest(authKey, postData).then((result) => {
             result.data.follow.err !== null ? reject(new Error(result.data.follow.err)) : resolve(true);
@@ -46,12 +44,11 @@ const unfollowChannel = (authKey, channel) => {
 };
 
 const getChannelInformation = (authKey, channel) => {
-    const postData = generatePostData("LivestreamPage",
-        {
-            displayname: channel,
-            add: false,
-            isLoggedIn: true
-        });
+    const postData = generatePostData("LivestreamPage", {
+        displayname: channel,
+        add: false,
+        isLoggedIn: true
+    });
     return new Promise((resolve, reject) => {
         webRequest(authKey, postData).then((result) => {
             result.errors !== undefined ? reject(new Error(result.errors["0"].message)) : resolve(result);
@@ -60,12 +57,11 @@ const getChannelInformation = (authKey, channel) => {
 };
 
 const getChannelViewers = (authKey, channel) => {
-    const postData = generatePostData("LivestreamPage",
-        {
-            displayname: channel,
-            add: false,
-            isLoggedIn: true
-        });
+    const postData = generatePostData("LivestreamPage", {
+        displayname: channel,
+        add: false,
+        isLoggedIn: true
+    });
     return new Promise((resolve, reject) => {
         webRequest(authKey, postData).then((result) => {
             if (!result.errors) {
@@ -82,13 +78,12 @@ const getChannelViewers = (authKey, channel) => {
 };
 
 const getChannelFollowers = (authKey, channel, amountToShow) => {
-    const postData = generatePostData("LivestreamProfileFollowers",
-        {
-            displayname: channel,
-            sortedBy: "AZ",
-            first: amountToShow,
-            isLoggedIn: true
-        });
+    const postData = generatePostData("LivestreamProfileFollowers", {
+        displayname: channel,
+        sortedBy: "AZ",
+        first: amountToShow,
+        isLoggedIn: true
+    });
     return new Promise((resolve, reject) => {
         webRequest(authKey, postData).then((result) => {
             if (result.data.userByDisplayName.followers) {
@@ -102,43 +97,40 @@ const getChannelFollowers = (authKey, channel, amountToShow) => {
 };
 
 const getChannelReplays = (authKey, channel, amountToShow) => {
-    const postData = generatePostData("LivestreamProfileReplay",
-        {
-            displayname: channel,
-            first: amountToShow
-        });
+    const postData = generatePostData("LivestreamProfileReplay", {
+        displayname: channel,
+        first: amountToShow
+    });
     return new Promise((resolve, reject) => {
         webRequest(authKey, postData).then((result) => {
-            result.errors !== undefined
-                ? reject(new Error(result.errors["0"].message))
-                : resolve(result.data.userByDisplayName.pastBroadcasts.list);
+            result.errors !== undefined ?
+                reject(new Error(result.errors["0"].message)) :
+                resolve(result.data.userByDisplayName.pastBroadcasts.list);
         }).catch(reject);
     });
 };
 
 const getChannelVideos = (authKey, channel, amountToShow) => {
-    const postData = generatePostData("LivestreamProfileVideo",
-        {
-            displayname: channel,
-            sortedBy: "Trending",
-            first: amountToShow
-        });
+    const postData = generatePostData("LivestreamProfileVideo", {
+        displayname: channel,
+        sortedBy: "Trending",
+        first: amountToShow
+    });
     return new Promise((resolve, reject) => {
         webRequest(authKey, postData).then((result) => {
-            result.errors !== undefined
-                ? reject(new Error(result.errors["0"].message))
-                : resolve(result.data.userByDisplayName.videos.list);
+            result.errors !== undefined ?
+                reject(new Error(result.errors["0"].message)) :
+                resolve(result.data.userByDisplayName.videos.list);
         });
     });
 };
 
 const getChannelWallet = (authKey, channel, amountToShow) => {
-    const postData = generatePostData("LivestreamProfileWallet",
-        {
-            displayname: channel,
-            first: amountToShow,
-            isLoggedIn: true
-        });
+    const postData = generatePostData("LivestreamProfileWallet", {
+        displayname: channel,
+        first: amountToShow,
+        isLoggedIn: true
+    });
     return new Promise((resolve, reject) => {
         webRequest(authKey, postData).then((result) => {
             if (result.data.userByDisplayName) {
@@ -153,41 +145,29 @@ const getChannelWallet = (authKey, channel, amountToShow) => {
 };
 
 const getTopContributors = (authKey, channel, amountToShow, rule) => {
-    const postData = generatePostData("TopContributors",
-        {
-            displayname: channel,
-            first: amountToShow,
-            rule: rule,
-            queryStream: false
-        });
+    const postData = generatePostData("TopContributors", {
+        displayname: channel,
+        first: amountToShow,
+        rule: rule,
+        queryStream: false
+    });
     return new Promise((resolve, reject) => {
-        getChannelInformation(authKey, channel).then(res => {
-            webRequest(authKey, postData).then((result) => {
-                if (res && res.livestream !== null) {
-                    result.errors !== undefined
-                        ? reject(new Error(result.errors["0"].message))
-                        : resolve(result.data.userByDisplayName.livestream.topContributions);
-                } else {
-                    result.errors !== undefined
-                        ? reject(new Error(result.errors["0"].message))
-                        : resolve(result.data.userByDisplayName.topContributions);
-                }
-            }).catch(reject);
+        webRequest(authKey, postData).then((result) => {
+            result.errors !== undefined ? reject(new Error(result.errors["0"].message)) : resolve(result.data.userByDisplayName.topContributions.list);
         }).catch(reject);
     });
 };
 
 const sendChatMessage = (authKey, channel, msg) => {
     const msgError = "Can't send your message, make sure there is a valid API KEY";
-    const postData = generatePostData("SendStreamChatMessage",
-        {
-            input: {
-                streamer: channel,
-                message: msg,
-                roomRole: "Moderator",
-                subscribing: true
-            }
-        });
+    const postData = generatePostData("SendStreamChatMessage", {
+        input: {
+            streamer: channel,
+            message: msg,
+            roomRole: "Moderator",
+            subscribing: true
+        }
+    });
     return new Promise((resolve, reject) => {
         webRequest(authKey, postData).then((result) => {
             if (result.errors !== undefined || result.data.sendStreamchatMessage.message === null) {

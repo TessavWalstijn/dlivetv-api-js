@@ -25,7 +25,7 @@ const webRequest = (authKey, postData) => {
                 res.setEncoding("utf-8");
                 res.on("data",
                     (chunk) => {
-                        resolve(JSON.parse(chunk));
+                        resolve(JSON.parse(chunk))
                     });
             });
         await req.write(postData);
