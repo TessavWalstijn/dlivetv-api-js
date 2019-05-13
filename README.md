@@ -3,7 +3,7 @@
     <a href="#"><img src="https://i.imgur.com/HZ0PD0v.jpg" /></a>
     <br />
     <br />
-    <a href="https://spectrum.chat/dlive-api"><img alt="Spectrum" src="https://img.shields.io/badge/Spectrum-Chat-blue.svg?&style=for-the-badge"></a>
+    <a href="https://discord.gg/azukeXk"><img alt="Discord" src="https://img.shields.io/discord/567034368002883594.svg?label=Discord&style=for-the-badge"></a>
     <a href="https://github.com/timedotcc/dlivetv-unofficial-api/blob/master/LICENSE"><img alt="GitHub" src="https://img.shields.io/badge/License-Modified%20MIT-green.svg?style=for-the-badge"></a>
     <a href="https://nodei.co/npm/dlivetv-unofficial-api/"><img alt="npm" src="https://img.shields.io/npm/v/dlivetv-unofficial-api.svg?style=for-the-badge"></a>
     <a href="https://www.npmjs.com/package/dlivetv-unofficial-api"><img alt="npm" src="https://img.shields.io/npm/dm/dlivetv-unofficial-api.svg?style=for-the-badge"></a>
