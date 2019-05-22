@@ -16,7 +16,7 @@
 > dlivetv-unofficial-api is a wrapping API for the graphql hidden api provided from dlive.tv with a focus on ease of use and on performance. 
 
 ## Prerequisites
-- Access token is required to use this module. Create an account on [dlive.tv](https://dlive.tv/) then follow our [wiki](https://github.com/dlive-apis/dlivetv-unofficial-api-js/wiki/Get-my-access-key) tutorial to get your token
+- Access token is required to use this module. Create an account on [dlive.tv](https://dlive.tv/) then follow our [wiki](https://dlive.timedot.cc/tutorials) tutorial to get your token
 
 ## Installation
 dlivetv-unofficial-api is free and easy to install
